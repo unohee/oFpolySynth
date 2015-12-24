@@ -1,0 +1,1 @@
+Advanced Audiovisual Processing Portfolio - mini project 1 : polyphonic synthesizer
