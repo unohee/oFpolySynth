@@ -5,5 +5,7 @@ System Requirements : openFrameworks 0.9.0 (stable), Addons(ofxMaxim, ofxMidi, o
 Instruction
 
 Plug your MIDI Keyboard
+
 open project in Xcode / Visual Studio
+
 Hit keyboard like your birthday.
