@@ -15,7 +15,7 @@
 using namespace std;
 
 enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
-
+class midiUtil; //forward declaration
 class keyboardIn{
 private:
     const int maxVoice = 16;
@@ -27,9 +27,9 @@ private:
 public:
     midiUtil util;
     keyboardIn(){
-        util.makeNTable();
     };
-    ~keyboardIn(){};
+    ~keyboardIn(){
+    };
     void receiveKey(ofxMidiMessage& msg);
     double getFreq(Note &n);
     

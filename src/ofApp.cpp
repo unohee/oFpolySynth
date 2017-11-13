@@ -8,22 +8,23 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-    
     //NoteEvent
-    
     //ofxMidi------------------
     ofSetLogLevel(OF_LOG_VERBOSE);
     
     // Codes below are referenced from ofxMidi MIDI input example https://github.com/danomatika/ofxMidi/tree/master/midiInputExample/src
+    midiIn = new ofxMidiIn();
+    midiIn->listPorts(); // via instance
+    if(midiIn->isOpen()){
+        midiIn->openPort(0); //call MIDI interface by name. as default. first midi interface will be connected. check your midi interface list in commandline below.
+        // add ofApp as a listener
+        midiIn->addListener(this);
+        // print received messages to the console
+        midiIn->setVerbose(false);
+    }else{
+        cout<<"rtmidi:[No Ports are opened]"<<endl;
+    }
     
-    // print input ports to console
-    midiIn.listPorts(); // via instance
-    midiIn.openPort(0); //call MIDI interface by name. as default. first midi interface will be connected. check your midi interface list in commandline below.
-    
-    // add ofApp as a listener
-    midiIn.addListener(this);
-    // print received messages to the console
-    midiIn.setVerbose(false);
     
     //END Reference----
     
@@ -46,16 +47,14 @@ void ofApp::setup() {
     gui.add(env2rel.set("AMP R", 350, 1, 5000));
     
     
-    ref = 440.0; // in order to use ote conversion to frequency function.  we need our reference frequency. and it is 440hz.
+    const double ref = 440.0; // in order to use ote conversion to frequency function.  we need our reference frequency. and it is 440hz.
     
     //load maximilian object here first!
     
     //Maximilian, Audio variables inits.
-    
-    
     //maxiENV setup.
     for(int i = 0; i < 16; i++){
-        OSCin[i]=440;
+        OSCin[i]=ref;
         //Filter Envelope
         
         ADSR1[i].setAttack(env1atk);
@@ -141,7 +140,6 @@ void ofApp::draw() {
 }
 //--------------------------------------------------------------
 void ofApp::newMidiMessage(ofxMidiMessage& msg) {
-    
     //RtMidi Callback.
     // make a copy of the latest message
     midiMessage = msg;
@@ -236,8 +234,9 @@ void ofApp::audioOut(float * output, int bufferSize, int nChannels){
 //--------------------------------------------------------------
 void ofApp::exit() {
     // clean up
-    midiIn.closePort();
-    midiIn.removeListener(this);
+    midiIn->closePort();
+    midiIn->removeListener(this);
+    delete midiIn;
     ofSoundStreamClose();
 }
 

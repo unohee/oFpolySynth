@@ -7,6 +7,7 @@
 #ifndef note_h
 #define note_h
 #include <string>
+
 using namespace std;
 
 enum KEY_STATUS {KEY_ON, KEY_OFF};
@@ -14,6 +15,8 @@ struct Note{
     int note;
     int velocity;
 };
+
+class keyboardIn; //forward declaration
 
 class midiUtil{
 private:
@@ -25,13 +28,12 @@ private:
 public:
     string notes[108];
     //generating musical note names
-    int octave;//octave is 0 - 8;
     void makeNTable(){
         //Lazy version
         const string note_substring[] = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
-        for(int noteNum=0; noteNum<108;noteNum++){
-            octave = noteNum /12;
-            notes[noteNum] = note_substring[noteNum%12]+to_string(octave);
+        for(int noteNum=0; noteNum<127;noteNum++){
+            const int octave = 10;
+            notes[noteNum] = note_substring[noteNum%12]+to_string(octave-2);
         }
     }
     bool isPressed(Note n){

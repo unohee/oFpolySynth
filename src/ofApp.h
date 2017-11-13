@@ -1,13 +1,17 @@
     #pragma once
 
 #include "ofMain.h"
-#include "ofxMidi.h"
 #include "ofxMaxim.h"
 #include "ofxGui.h"
 
 #include "keyboardIn.h"
 #include "midiUtil.h"
 
+//forward declarations
+class ofxMidiIn;
+class ofxMidiMessage;
+class ofxGui;
+class keyboardIn;
 
 class ofApp : public ofBaseApp, public ofxMidiListener {
     
@@ -29,7 +33,7 @@ public:
     
 private:
     
-    ofxMidiIn midiIn;
+    ofxMidiIn *midiIn;
     ofxMidiMessage midiMessage;
     ofxPanel gui;
     
@@ -45,11 +49,9 @@ private:
 
     //core class
     keyboardIn keyIn;
-    midiUtil util;
     
     
     //Maximilian-------
-    double ref; //reference frequency
     void audioIn(float * input, int bufferSize, int nChannels);
     void audioOut(float * output, int bufferSize, int nChannels);
     double VCOout[16], VCFout[16], ADSRout[16], ampOut;
