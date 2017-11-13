@@ -1,8 +1,5 @@
+//Heewon Oh, Goldsmiths, University of London
 
-
-/*Heewon Oh, Goldsmiths, University of London
-*http://gitlab.doc.gold.ac.uk/heewon-oh/ofMaxim-polysynth
-*/
 #include "ofApp.h"
 
 //gets samplerate and buffersize as const.
@@ -88,12 +85,9 @@ double midiTofreq (int m){
     return mtof; //return frequency.
 }
 //--------------------------------------------------------------
-
-
 void ofApp::update() {
     
 }
-
 //--------------------------------------------------------------
 void ofApp::draw() {
     ofSetColor(0);
@@ -145,90 +139,24 @@ void ofApp::draw() {
     text.str(""); // clear
     
 }
-
 //--------------------------------------------------------------
 void ofApp::newMidiMessage(ofxMidiMessage& msg) {
     
     //RtMidi Callback.
-    
-    
     // make a copy of the latest message
     midiMessage = msg;
-    
-
-//ASSIGNING NEW ENUMS FOR M-Audio Keystation 32----------------------------------
-
-    NOTE_STATUS KEY;
-    //Create new Enumeration to seperate two states: NOTE_ON but velocity is bigger than 0 and else.
-    //ofxMidi gives two enum based on raw midi status byte 0x90(NOTE_ON), 0x80(NOTE_OFF) from Midi keyboard. but mine doesnÕt do same thing.
-    
-    /*
-     *MIDI.org says that
-     
-     ÒIn MIDI systems, the activation of a particular note and the release of the same note are considered as two separate events. When a key is pressed on a MIDI keyboard instrument or MIDI keyboard controller, the keyboard sends a Note On message on the MIDI OUT port. The keyboard may be set to transmit on any one of the sixteen logical MIDI channels, and the status byte for the Note On message will indicate the selected Channel number. The Note On status byte is followed by two data bytes, which specify key number (indicating which key was pressed) and velocity (how hard the key was pressed).Ó
-     */
-    
-    
-    
-    note_on = false;
-    note_off = false;
-
-//Assigning new Enums based on Velocity------------------------------------------
-    if(msg.velocity > 0){ //note on only gets velocity.
-        
-
-        KEY = KEY_ON;//note on only gets velocity.
-        
-        //or check ENUM directly from ofxMidi library.
-        if(MIDI_NOTE_ON) note_on = TRUE;
-        
-    }
-    else{
-        //if velocity is zero..
-        
-        //Case 1. if ofxMidi doesn't send NOTEOFF enum. we use this.
-        KEY = KEY_OFF;//then I say it is NOTE OFF.
-        
-        //Case 2. If ofxMidi captures NOTEOFF from MIDI Device..
-        if(MIDI_NOTE_OFF) note_off = TRUE;
-    }
-    
-    if (KEY == KEY_ON)  note_on = TRUE;
-    if (KEY == KEY_OFF) note_off = TRUE;
-    //so now it's evenly same as usual midi device.
-    
-//--------------------------------------------------------------------------------
-    
     //Polyphony Method (Simplified Version. note that it doesn't have note stealing.)
     //based on Maximilian polyphony example's structure. https://github.com/micknoise/Maximilian/blob/master/maximilian_examples/15.polysynth.cpp
     
     //*check how many keys are pressed
-    if (note_on){
-        //then number of input note increments. (if it's 2 note. voice will be 2);
-        voice++;
-    }
-    if (note_off){
-        //erase note.
-        voice--;
-    }
-    //** and do iterations which keys were pressed.
+    keyIn.receiveKey(msg);
+    //and do iterations which keys were pressed.
     for(int i = 1; i <108; i++){ //the range of midi note is 1-108
-        if(note_on){
-            //Keypressed.
-            isPressed[msg.pitch] = true;
-        }
-        if(note_off){
-            //Keyreleased.
-            isPressed[msg.pitch] = false;
-        }
-
             if(isPressed[msg.pitch]){//NOTE_ON
-                if(voice==16){
-                    voice = 0;
-                }
                 note[voice] = msg.pitch; //assign note value in each voice arrays.
                 
                 OSCin[voice] = midiTofreq(note[voice]); //send mtof pitch to VCOs.
+//                OSCin[voice] = util.mtof(note[voice]);
                 
                 //and Trigger 2 Env.
                 ADSR1[voice].trigger = 1;
@@ -310,6 +238,7 @@ void ofApp::exit() {
     // clean up
     midiIn.closePort();
     midiIn.removeListener(this);
+    ofSoundStreamClose();
 }
 
 
