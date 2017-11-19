@@ -8,11 +8,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-    //NoteEvent
     //ofxMidi------------------
-    ofSetLogLevel(OF_LOG_VERBOSE);
-    
-    // Codes below are referenced from ofxMidi MIDI input example https://github.com/danomatika/ofxMidi/tree/master/midiInputExample/src
     midiIn = new ofxMidiIn();
     midiIn->listPorts(); // via instance
     if(midiIn->isOpen()){
@@ -24,11 +20,6 @@ void ofApp::setup() {
     }else{
         cout<<"rtmidi:[No Ports are opened]"<<endl;
     }
-    
-    
-    //END Reference----
-    
-    
     //GUI
 
     gui.setup("Envelope"); //Name it
@@ -46,11 +37,9 @@ void ofApp::setup() {
     gui.add(env2sus.set("AMP S", 1, 0.1f, 1.0));
     gui.add(env2rel.set("AMP R", 350, 1, 5000));
     
-    
     const double ref = 440.0; // in order to use ote conversion to frequency function.  we need our reference frequency. and it is 440hz.
     
     //load maximilian object here first!
-    
     //Maximilian, Audio variables inits.
     //maxiENV setup.
     for(int i = 0; i < 16; i++){
@@ -68,23 +57,8 @@ void ofApp::setup() {
         ADSR2[i].setSustain(env2rel);
         ADSR2[i].setRelease(env2sus);
     }
-
-    
-    
     //any audio code has to be before ofSoundStreamSetup. otherwise it's crashed.
     ofSoundStreamSetup(2, 0, this, SRATE, BUFFER_SIZE, 4);
-    
-    
-}
-//--------------------------------------------------------------
-double midiTofreq (int m){
-    //MIDI to frequency Conversion function.
-    double mtof = (440.0 / 32.0) * pow(2,(m - 9.0) / 12.0); // modified equation from this C code http://subsynth.sourceforge.net/midinote2freq.html
-    
-    return mtof; //return frequency.
-}
-//--------------------------------------------------------------
-void ofApp::update() {
     
 }
 //--------------------------------------------------------------
@@ -96,9 +70,6 @@ void ofApp::draw() {
     gui.draw();
     
     //Simple Graphics for MIDI Testing - ofxMidi example referenced.
-    
-    
-
     // draw the last recieved message contents to the screen
     text << "Received: " << ofxMidiMessage::getStatusString(midiMessage.status);
     ofDrawBitmapString(text.str(), 20, 20);
@@ -153,7 +124,7 @@ void ofApp::newMidiMessage(ofxMidiMessage& msg) {
             if(isPressed[msg.pitch]){//NOTE_ON
                 note[voice] = msg.pitch; //assign note value in each voice arrays.
                 
-                OSCin[voice] = midiTofreq(note[voice]); //send mtof pitch to VCOs.
+                OSCin[voice] = mtof.mtof(note[voice]); //send mtof pitch to VCOs.
 //                OSCin[voice] = util.mtof(note[voice]);
                 
                 //and Trigger 2 Env.
@@ -184,14 +155,19 @@ void ofApp::newMidiMessage(ofxMidiMessage& msg) {
 }
 
 //--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+    isKeyPressed = true;
+}
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key){
+    !isKeyPressed;
+}
+//--------------------------------------------------------------
 void ofApp::audioIn(float * output, int bufferSize, int nChannels){
-    
     
 }
 //--------------------------------------------------------------
 void ofApp::audioOut(float * output, int bufferSize, int nChannels){
-
-    
     for(int i = 0; i < bufferSize; i++){
         
         for(int i = 0; i < 16; i++){

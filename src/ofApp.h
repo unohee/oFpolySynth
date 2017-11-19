@@ -18,25 +18,20 @@ class ofApp : public ofBaseApp, public ofxMidiListener {
 public:
     
     void setup();
-    void update();
     void draw();
     void exit();
-    
-    //ofxMidi------
-    void newMidiMessage(ofxMidiMessage& eventArgs);
-    
-    stringstream text;
-    
-    double outputTwoChannels[2];
+    void keyPressed(int key);
+    void keyReleased(int key);
+    void newMidiMessage(ofxMidiMessage& eventArgs); //ofxMidi
+    double outputTwoChannels[2]; //ofAudioStream
     enum NOTE_STATUS {KEY_ON, KEY_OFF};
-    
-    
 private:
-    
+    stringstream text;
+    bool isKeyPressed; //global variables for keypress
+    //of rtmidi
     ofxMidiIn *midiIn;
     ofxMidiMessage midiMessage;
     ofxPanel gui;
-    
     //parameters for GUI
     ofParameter<int> env1atk; //attack
     ofParameter<int> env1dec; //decay
@@ -50,7 +45,6 @@ private:
     //core class
     keyboardIn keyIn;
     
-    
     //Maximilian-------
     void audioIn(float * input, int bufferSize, int nChannels);
     void audioOut(float * output, int bufferSize, int nChannels);
@@ -62,19 +56,16 @@ private:
     maxiFilter VCF[16], //lopass with resonance.
     ramp[16],// filter to create ramp-generator.
     porta[16]; //portamento
-//    convert mtof;
-    
+    convert mtof;
     
     maxiMix outputTwoChannel;
     maxiEnv ADSR1[16], ADSR2[16];
     
 protected:
-    
     bool note_on;
     bool note_off;
     bool isPressed[108];
     queue<int> noteIn;
     int note[16];
     int voice;//amount to check the size of incomming MIDI message
-
 };

@@ -12,10 +12,26 @@
 #include "ofxMidi.h" //ofxMidi case
 #include <queue>
 #include <vector>
+#include <string>
 using namespace std;
 
 enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
 class midiUtil; //forward declaration
+class qtKey;
+
+class qtKey{
+    //qwerty MIDI keyboard input
+private:
+    bool isPressed;
+    const char keys[15] = {'a','w','s','e','d',
+        'f','t','g','y','h',
+        'u','j','k','o','l'}; //get keycaps for piano playing
+public:
+    void getInputs(int key);//get all keyboard inputs
+    int keyToNote(int key);//translate keycaps to note number
+
+};
+
 class keyboardIn{
 private:
     const int maxVoice = 16;
@@ -32,8 +48,6 @@ public:
     };
     void receiveKey(ofxMidiMessage& msg);
     double getFreq(Note &n);
-    
-    
     bool isPressed(Note n){//copied from midiUtil.h
         
         /*
