@@ -157,14 +157,12 @@ void ofApp::newMidiMessage(ofxMidiMessage& msg) {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     isKeyPressed = true;
+    cout<<"Keypressed :"<<key<<endl;
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
     !isKeyPressed;
-}
-//--------------------------------------------------------------
-void ofApp::audioIn(float * output, int bufferSize, int nChannels){
-    
+    cout<<"Keyreleased :"<<key<<endl;
 }
 //--------------------------------------------------------------
 void ofApp::audioOut(float * output, int bufferSize, int nChannels){

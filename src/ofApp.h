@@ -23,8 +23,9 @@ public:
     void keyPressed(int key);
     void keyReleased(int key);
     void newMidiMessage(ofxMidiMessage& eventArgs); //ofxMidi
-    double outputTwoChannels[2]; //ofAudioStream
-    enum NOTE_STATUS {KEY_ON, KEY_OFF};
+    //Maximilian-------
+    void audioOut(float * output, int bufferSize, int nChannels);
+    
 private:
     stringstream text;
     bool isKeyPressed; //global variables for keypress
@@ -44,12 +45,10 @@ private:
 
     //core class
     keyboardIn keyIn;
-    
-    //Maximilian-------
-    void audioIn(float * input, int bufferSize, int nChannels);
-    void audioOut(float * output, int bufferSize, int nChannels);
+    enum NOTE_STATUS {KEY_ON, KEY_OFF};
     double VCOout[16], VCFout[16], ADSRout[16], ampOut;
     double OSCin[16];
+    double outputTwoChannels[2]; //ofAudioStream
     
     //put maximilian declaration under.
     maxiOsc VCO[16], subOsc[16], phasor[16], LFO1[16];
@@ -57,7 +56,6 @@ private:
     ramp[16],// filter to create ramp-generator.
     porta[16]; //portamento
     convert mtof;
-    
     maxiMix outputTwoChannel;
     maxiEnv ADSR1[16], ADSR2[16];
     

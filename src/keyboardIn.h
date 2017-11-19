@@ -23,6 +23,8 @@ class qtKey{
     //qwerty MIDI keyboard input
 private:
     bool isPressed;
+    const int keycodeL[19]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108,122,120,99,118}; //lowercase
+    const int keycodeU[19]={};//find uppercase ascii
     const char keys[15] = {'a','w','s','e','d',
         'f','t','g','y','h',
         'u','j','k','o','l'}; //get keycaps for piano playing

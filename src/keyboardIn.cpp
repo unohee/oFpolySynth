@@ -6,6 +6,16 @@
 //
 
 #include "keyboardIn.h"
+
+void qtKey::getInputs(int key){
+    
+}
+int qtKey::keyToNote(int Key){
+    
+    return 0;
+}
+
+//--------------------------------------------------------------
 void keyboardIn::receiveKey(ofxMidiMessage& msg){
     //note that rtmidi test version (with ofxmidi and synth wrapped)
     //soon will be transfer to JUCE
