@@ -18,28 +18,27 @@ using namespace std;
 enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
 enum NOTE_STATUS{NOTE_ON, NOTE_OFF};
 
-class midiUtil; //forward declarations
+class midiUtil;
 class qtKey;
 class keyboardIn;
 
-//class definition
 class qtKey : public midiUtil{
     //qwerty MIDI keyboard input
 private:
+    queue<int> rawInput;
     bool print;
     string s;
-    
-    const int keycode[15]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //lowercase ascii
+    const int keycode[15]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
     const int funcKey[4] = {122,120,99,118}; //ascii for function input
     int currentOctave = 3; //set current octave to 3oct (C3 - D4)
-    int rawInput;
+//    int rawInput;
 public:
     qtKey(){print = true;}
     void getInputs(int key);//get all keyboard inputs
     void changeOct(int key);
     bool isPressed(bool key);
     int keyToNote();//translate keycaps to note number
-
+    NOTE_STATUS ns;
 };
 
 class keyboardIn : public midiUtil{

@@ -8,44 +8,48 @@
 #include "keyboardIn.h"
 
 void qtKey::getInputs(int key){
-    
     if(key == funcKey[0]){
         //decrease octave
         if(currentOctave >= -2 || currentOctave <= 7)
             currentOctave --;
-        cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
+        if(print)cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
     }else if(key == funcKey[1]){
         //increase octave
-        if(currentOctave <= 7) currentOctave ++;
-        cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
-        
+        if(currentOctave >= -2 || currentOctave <= 7) currentOctave ++;
+        if(print)cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
     }else if(key == funcKey[2]){
-        //decrease velocity per ...12?
-        
+        //decrease velocity
     }else if(key == funcKey[3]){
         //increase velocity
     }
-    
     //change keycode to midi notCe
     for(int i=0;i < 15;i++){
         if(keycode[i] == key){
             int thisNote = (i+((currentOctave+2)*12));
+            rawInput.push(thisNote);
+            if(rawInput.size()>16){
+                rawInput.pop();
+                cout<<"Last element is cleared"<<endl;
+            }
             if(print){
-                s = s + "[Midi Note: " + to_string(thisNote) +", Musical Note: "+notes[thisNote]+"]"+'\n';
+                s = s + "[Midi Note: " + to_string(rawInput.front()) +", Musical Note: "+notes[thisNote]+"]"+'\n';
                 cout<<s;
                 s= "";
             }
-            rawInput = thisNote;
         }
     }
 }
 int qtKey::keyToNote(){
-    return rawInput;
+    int noteOut = rawInput.back();
+    return noteOut;
 }
 bool qtKey::isPressed(bool key){
-    
+    if(key){
+        
+    }else{
+        
+    }
 }
-
 //--------------------------------------------------------------
 void keyboardIn::receiveKey(ofxMidiMessage& msg){
     //note that rtmidi test version (with ofxmidi and synth wrapped)

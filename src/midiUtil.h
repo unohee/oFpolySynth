@@ -38,6 +38,7 @@ public:
             notes[noteNum] = note_substring[noteNum%12]+to_string(octave-2);
         }
     }
+    void makeMIDInote();
     bool isPressed(Note n){
         /*rtMidi gives two enum based on raw midi status byte 0x90(NOTE_ON), 0x80(NOTE_OFF) from Midi keyboard.
         but some don’t give enum.
