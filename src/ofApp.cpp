@@ -163,7 +163,7 @@ void ofApp::newMidiMessage(ofxMidiMessage& msg) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    qtk.keyToNote(key)
+    qtk.keyToNote(key);
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){

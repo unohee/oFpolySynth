@@ -33,6 +33,7 @@ private:
     const char keys[15] = {'a','w','s','e','d',
         'f','t','g','y','h',
         'u','j','k','o','l'}; //get keycaps for piano playing
+    int currentOctave = 3; //set current octave to 3oct (C3 - D4)
 public:
     void getInputs(int key);//get all keyboard inputs
     int keyToNote(int key);//translate keycaps to note number
