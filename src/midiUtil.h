@@ -27,8 +27,10 @@ private:
     };
 public:
     string notes[108];
-    //generating musical note names
-    void makeNTable(){
+    midiUtil(){
+        makeNTable();
+    }
+    void makeNTable(){//generating musical note names
         //Lazy version
         const string note_substring[] = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
         for(int noteNum=0; noteNum<127;noteNum++){

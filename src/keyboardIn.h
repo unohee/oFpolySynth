@@ -16,13 +16,18 @@
 using namespace std;
 
 enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
-class midiUtil; //forward declaration
-class qtKey;
 
-class qtKey{
+
+class midiUtil; //forward declarations
+class qtKey;
+class keyboardIn;
+
+//class definition
+class qtKey : public midiUtil{
     //qwerty MIDI keyboard input
 private:
-    bool isPressed;
+    stringstream ss;
+    bool isPressed(bool key);
     const int keycodeL[19]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108,122,120,99,118}; //lowercase
     const int keycodeU[19]={};//find uppercase ascii
     const char keys[15] = {'a','w','s','e','d',
@@ -34,7 +39,7 @@ public:
 
 };
 
-class keyboardIn{
+class keyboardIn : public midiUtil{
 private:
     const int maxVoice = 16;
     deque<Note> rawInput;

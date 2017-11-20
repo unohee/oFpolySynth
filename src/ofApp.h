@@ -11,9 +11,11 @@
 class ofxMidiIn;
 class ofxMidiMessage;
 class ofxGui;
+class ofxMaxim;
+class midiUtil;
 class keyboardIn;
 
-class ofApp : public ofBaseApp, public ofxMidiListener {
+class ofApp : public ofBaseApp, public ofxMidiListener, public keyboardIn {
     
 public:
     
@@ -27,6 +29,8 @@ public:
     void audioOut(float * output, int bufferSize, int nChannels);
     
 private:
+    qtKey qtk;
+    
     stringstream text;
     bool isKeyPressed; //global variables for keypress
     //of rtmidi

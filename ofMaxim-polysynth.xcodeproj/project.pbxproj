@@ -14,6 +14,7 @@
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
 		22F21CE3B902225374BA1CA2 /* maximilian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D3A0051CCB2C0F0ECA139E /* maximilian.cpp */; };
 		3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 712B183BC00EBFFB1EEA5AB8 /* ofxRtMidiOut.cpp */; };
+		4663467E1FC1D7120025369C /* keyboardIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4663467D1FC1D7120025369C /* keyboardIn.cpp */; };
 		483908258D00B98B4BE69F07 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78D67A00EB899FAC09430597 /* ofxLabel.cpp */; };
 		5C4A4AA5D4784DF23EA43038 /* maxiAtoms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EFA3ACBB8D16CC0DA1E79C6 /* maxiAtoms.cpp */; };
 		5CBB2AB3A60F65431D7B555D /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C88333E71C9457E441C33474 /* ofxButton.cpp */; };
@@ -79,6 +80,9 @@
 		3DD359247F3ED1550D8BB5C9 /* ofxMidiIn.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiIn.cpp; path = ../../../addons/ofxMidi/src/ofxMidiIn.cpp; sourceTree = SOURCE_ROOT; };
 		4310BEFDE24FF04FEBEE8086 /* ofxBaseMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseMidi.h; path = ../../../addons/ofxMidi/src/ofxBaseMidi.h; sourceTree = SOURCE_ROOT; };
 		440B2B891BD019685EF360B8 /* maxiMFCC.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = maxiMFCC.cpp; path = ../../../addons/ofxMaxim/libs/maxiMFCC.cpp; sourceTree = SOURCE_ROOT; };
+		4663467B1FC1D7120025369C /* keyboardIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keyboardIn.h; sourceTree = "<group>"; };
+		4663467C1FC1D7120025369C /* midiUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midiUtil.h; sourceTree = "<group>"; };
+		4663467D1FC1D7120025369C /* keyboardIn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = keyboardIn.cpp; sourceTree = "<group>"; };
 		470CF04F1D4D1B38D5AA1797 /* ofxRtMidiOut.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRtMidiOut.h; path = ../../../addons/ofxMidi/src/desktop/ofxRtMidiOut.h; sourceTree = SOURCE_ROOT; };
 		4CFB659E40D3D3DC5A3E9478 /* maxiGrains.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = maxiGrains.h; path = ../../../addons/ofxMaxim/libs/maxiGrains.h; sourceTree = SOURCE_ROOT; };
 		52AFA1F08C420992CAAAE648 /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
@@ -325,6 +329,9 @@
 			isa = PBXGroup;
 			children = (
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				4663467D1FC1D7120025369C /* keyboardIn.cpp */,
+				4663467B1FC1D7120025369C /* keyboardIn.h */,
+				4663467C1FC1D7120025369C /* midiUtil.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 			);
@@ -427,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4663467E1FC1D7120025369C /* keyboardIn.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				856AA354D08AB4B323081444 /* ofxBaseGui.cpp in Sources */,

@@ -11,6 +11,12 @@ void ofApp::setup() {
     //ofxMidi------------------
     midiIn = new ofxMidiIn();
     midiIn->listPorts(); // via instance
+    midiIn->openPort(0); //call MIDI interface by name. as default. first midi interface will be connected. check your midi interface list in commandline below.
+    // add ofApp as a listener
+    midiIn->addListener(this);
+    // print received messages to the console
+    midiIn->setVerbose(false);
+    /*
     if(midiIn->isOpen()){
         midiIn->openPort(0); //call MIDI interface by name. as default. first midi interface will be connected. check your midi interface list in commandline below.
         // add ofApp as a listener
@@ -20,6 +26,7 @@ void ofApp::setup() {
     }else{
         cout<<"rtmidi:[No Ports are opened]"<<endl;
     }
+     */
     //GUI
 
     gui.setup("Envelope"); //Name it
@@ -156,13 +163,11 @@ void ofApp::newMidiMessage(ofxMidiMessage& msg) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    isKeyPressed = true;
-    cout<<"Keypressed :"<<key<<endl;
+    qtk.keyToNote(key)
 }
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-    !isKeyPressed;
-    cout<<"Keyreleased :"<<key<<endl;
+    
 }
 //--------------------------------------------------------------
 void ofApp::audioOut(float * output, int bufferSize, int nChannels){

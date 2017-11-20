@@ -11,8 +11,12 @@ void qtKey::getInputs(int key){
     
 }
 int qtKey::keyToNote(int Key){
-    
-    return 0;
+    for(int i=0;i < 19;i++){
+        if(keycodeL[i] == Key || keycodeU[i] == Key){
+            cout<<keys[i]<<","<<Key<<","<<notes[i]<<endl;
+            return Key;
+        }
+    }
 }
 
 //--------------------------------------------------------------
