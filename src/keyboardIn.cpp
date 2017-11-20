@@ -9,14 +9,41 @@
 
 void qtKey::getInputs(int key){
     
-}
-int qtKey::keyToNote(int Key){
-    for(int i=0;i < 19;i++){
-        if(keycodeL[i] == Key || keycodeU[i] == Key){
-            cout<<keys[i]<<","<<Key<<","<<notes[i]<<endl;
-            return Key;
+    if(key == funcKey[0]){
+        //decrease octave
+        if(currentOctave >= -2 || currentOctave <= 7)
+            currentOctave --;
+        cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
+    }else if(key == funcKey[1]){
+        //increase octave
+        if(currentOctave <= 7) currentOctave ++;
+        cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
+        
+    }else if(key == funcKey[2]){
+        //decrease velocity per ...12?
+        
+    }else if(key == funcKey[3]){
+        //increase velocity
+    }
+    
+    //change keycode to midi notCe
+    for(int i=0;i < 15;i++){
+        if(keycode[i] == key){
+            int thisNote = (i+((currentOctave+2)*12));
+            if(print){
+                s = s + "[Midi Note: " + to_string(thisNote) +", Musical Note: "+notes[thisNote]+"]"+'\n';
+                cout<<s;
+                s= "";
+            }
+            rawInput = thisNote;
         }
     }
+}
+int qtKey::keyToNote(){
+    return rawInput;
+}
+bool qtKey::isPressed(bool key){
+    
 }
 
 //--------------------------------------------------------------

@@ -34,7 +34,7 @@ public:
         //Lazy version
         const string note_substring[] = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
         for(int noteNum=0; noteNum<127;noteNum++){
-            const int octave = 10;
+            int octave = noteNum / 12;
             notes[noteNum] = note_substring[noteNum%12]+to_string(octave-2);
         }
     }

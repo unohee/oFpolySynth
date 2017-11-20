@@ -16,7 +16,7 @@
 using namespace std;
 
 enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
-
+enum NOTE_STATUS{NOTE_ON, NOTE_OFF};
 
 class midiUtil; //forward declarations
 class qtKey;
@@ -26,17 +26,19 @@ class keyboardIn;
 class qtKey : public midiUtil{
     //qwerty MIDI keyboard input
 private:
-    stringstream ss;
-    bool isPressed(bool key);
-    const int keycodeL[19]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108,122,120,99,118}; //lowercase
-    const int keycodeU[19]={};//find uppercase ascii
-    const char keys[15] = {'a','w','s','e','d',
-        'f','t','g','y','h',
-        'u','j','k','o','l'}; //get keycaps for piano playing
+    bool print;
+    string s;
+    
+    const int keycode[15]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //lowercase ascii
+    const int funcKey[4] = {122,120,99,118}; //ascii for function input
     int currentOctave = 3; //set current octave to 3oct (C3 - D4)
+    int rawInput;
 public:
+    qtKey(){print = true;}
     void getInputs(int key);//get all keyboard inputs
-    int keyToNote(int key);//translate keycaps to note number
+    void changeOct(int key);
+    bool isPressed(bool key);
+    int keyToNote();//translate keycaps to note number
 
 };
 
