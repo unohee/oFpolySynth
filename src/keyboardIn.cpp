@@ -9,7 +9,7 @@
 
 void qtKey::getInputs(int key){
     //octave, velocity change functions
-    switch(searchKey(key, funcKey)){
+    switch(getIndex(key, funcKey)){
         case 0 :
             if(currentOctave > -2)currentOctave --;
             cout<<"Octave Down"<<currentOctave<<endl;
@@ -26,19 +26,14 @@ void qtKey::getInputs(int key){
             break;
     }
     //change keycode to midi note
-    for(int i=0;i < 15;i++){
-        if(keycode[i] == key){
-            int thisNote = (i+((currentOctave+2)*12));
-            rawInput.push(thisNote);
-            if(rawInput.size()>16){
-                rawInput.pop();
-                cout<<"Last element is cleared"<<endl;
-            }
-            if(print){
-                s = s + "[Midi Note: " + to_string(rawInput.front()) +", Musical Note: "+notes[thisNote]+"]"+'\n';
-                cout<<s;
-                s= "";
-            }
+    if(isNote(key, keyT)){
+        int thisNote = getIndex(key, keyT) + ((currentOctave+2)*12);
+        rawInput.push(thisNote);
+        if(rawInput.size()>16)rawInput.pop();
+        if(print){
+            s = s + "[Midi Note: " + to_string(rawInput.front()) +", Musical Note: "+notes[thisNote]+"]"+'\n';
+            cout<<s;
+            s= "";
         }
     }
 }

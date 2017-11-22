@@ -19,19 +19,25 @@ enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
 enum NOTE_STATUS{NOTE_ON, NOTE_OFF};
 
 class midiUtil;
-class qtKey;
 class keyboardIn;
-
 class qtKey : public midiUtil{
     //qwerty MIDI keyboard input
 private:
     queue<int> rawInput;
     bool print;
     string s;
-    const vector<int> notes = {97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
+    const vector<int> keyT = {97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
     const vector<int> funcKey = {122,120,99,118};
     int currentOctave = 3; //set current octave to 3oct (C3 - D4)
-    int searchKey(int keycode, vector<int> v){
+    bool isNote(int keycode, vector<int> v){
+        for(int i=0;i < v.size();i++){
+            if(keycode == v.at(i)) {
+                return true;
+                break;
+            }
+        }
+    }
+    int getIndex(int keycode, vector<int> v){
         int output;
         for(int i=0;i < v.size();i++){
             if(keycode == v.at(i)) {
