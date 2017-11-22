@@ -28,10 +28,19 @@ private:
     queue<int> rawInput;
     bool print;
     string s;
-    const int keycode[15]={97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
-    const int funcKey[4] = {122,120,99,118}; //ascii for function input
+    const vector<int> notes = {97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
+    const vector<int> funcKey = {122,120,99,118};
     int currentOctave = 3; //set current octave to 3oct (C3 - D4)
-//    int rawInput;
+    int searchKey(int keycode, vector<int> v){
+        int output;
+        for(int i=0;i < v.size();i++){
+            if(keycode == v.at(i)) {
+                output = i;
+                break;
+            }
+        }
+        return output;
+    };
 public:
     qtKey(){print = true;}
     void getInputs(int key);//get all keyboard inputs

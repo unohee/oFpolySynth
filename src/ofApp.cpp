@@ -172,7 +172,7 @@ void ofApp::keyReleased(int key){
 }
 //--------------------------------------------------------------
 void ofApp::audioOut(float * output, int bufferSize, int nChannels){
-    for(int i = 0; i < bufferSize; i++){
+   /* for(int i = 0; i < bufferSize; i++){
         
         for(int i = 0; i < 16; i++){
 
@@ -208,6 +208,7 @@ void ofApp::audioOut(float * output, int bufferSize, int nChannels){
         
         
     }
+    */
 }
 
 

@@ -8,21 +8,24 @@
 #include "keyboardIn.h"
 
 void qtKey::getInputs(int key){
-    if(key == funcKey[0]){
-        //decrease octave
-        if(currentOctave >= -2 || currentOctave <= 7)
-            currentOctave --;
-        if(print)cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
-    }else if(key == funcKey[1]){
-        //increase octave
-        if(currentOctave >= -2 || currentOctave <= 7) currentOctave ++;
-        if(print)cout<<"[Octave Range Changed:"<<currentOctave<<"]"<<endl;
-    }else if(key == funcKey[2]){
-        //decrease velocity
-    }else if(key == funcKey[3]){
-        //increase velocity
+    //octave, velocity change functions
+    switch(searchKey(key, funcKey)){
+        case 0 :
+            if(currentOctave > -2)currentOctave --;
+            cout<<"Octave Down"<<currentOctave<<endl;
+            break;
+        case 1 :
+            if(currentOctave < 7)currentOctave ++;
+            cout<<"Octave Up"<<currentOctave<<endl;
+            break;
+        case 2 :
+            break;
+        case 3 :
+            break;
+        default :
+            break;
     }
-    //change keycode to midi notCe
+    //change keycode to midi note
     for(int i=0;i < 15;i++){
         if(keycode[i] == key){
             int thisNote = (i+((currentOctave+2)*12));
