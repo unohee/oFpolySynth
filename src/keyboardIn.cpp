@@ -28,13 +28,8 @@ void qtKey::getInputs(int key){
     //change keycode to midi note
     if(isNote(key, keyT)){
         int thisNote = getIndex(key, keyT) + ((currentOctave+2)*12);
-        rawInput.push(thisNote);
-        if(rawInput.size()>16)rawInput.pop();
-        if(print){
-            s = s + "[Midi Note: " + to_string(rawInput.front()) +", Musical Note: "+notes[thisNote]+"]"+'\n';
-            cout<<s;
-            s= "";
-        }
+        addValue(thisNote);
+        printMIDIvalue(thisNote);
     }
 }
 int qtKey::keyToNote(){

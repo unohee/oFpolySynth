@@ -10,9 +10,6 @@
 
 #include "midiUtil.h"
 #include "ofxMidi.h" //ofxMidi case
-#include <queue>
-#include <vector>
-#include <string>
 using namespace std;
 
 enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
@@ -25,10 +22,9 @@ class qtKey : public midiUtil{
 private:
     queue<int> rawInput;
     bool print;
-    string s;
     const vector<int> keyT = {97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
     const vector<int> funcKey = {122,120,99,118};
-    int currentOctave = 3; //set current octave to 3oct (C3 - D4)
+    int currentOctave;
     bool isNote(int keycode, vector<int> v){
         for(int i=0;i < v.size();i++){
             if(keycode == v.at(i)) {
@@ -36,6 +32,16 @@ private:
                 break;
             }
         }
+    }
+    void addValue(int element){
+        rawInput.push(element);
+        if(rawInput.size()>16)rawInput.pop();
+    }
+    void printMIDIvalue(int input){
+        string s;
+        s = s + "[Midi Note: " + to_string(rawInput.front()) +", Musical Note: "+notes[input]+"]"+'\n';
+        cout<<s;
+        s= "";
     }
     int getIndex(int keycode, vector<int> v){
         int output;
@@ -48,7 +54,7 @@ private:
         return output;
     };
 public:
-    qtKey(){print = true;}
+    qtKey():currentOctave(3), print(true){};
     void getInputs(int key);//get all keyboard inputs
     void changeOct(int key);
     bool isPressed(bool key);

@@ -7,7 +7,8 @@
 #ifndef note_h
 #define note_h
 #include <string>
-
+#include <queue>
+#include <vector>
 using namespace std;
 
 enum KEY_STATUS {KEY_ON, KEY_OFF};
