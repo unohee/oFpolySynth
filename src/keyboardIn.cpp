@@ -6,7 +6,6 @@
 //
 
 #include "keyboardIn.h"
-
 void qtKey::getInputs(int key){
     //octave, velocity change functions
     switch(getIndex(key, funcKey)){
@@ -26,11 +25,7 @@ void qtKey::getInputs(int key){
             break;
     }
     //change keycode to midi note
-    if(isNote(key, keyT)){
-        int thisNote = getIndex(key, keyT) + ((currentOctave+2)*12);
-        addValue(thisNote);
-        printMIDIvalue(thisNote);
-    }
+    makeNote(key);
 }
 int qtKey::keyToNote(){
     int noteOut = rawInput.back();

@@ -12,19 +12,24 @@
 #include "ofxMidi.h" //ofxMidi case
 using namespace std;
 
-enum NOTE_PRIORITY{HIGHEST,LOWEST,LATEST};
-enum NOTE_STATUS{NOTE_ON, NOTE_OFF};
-
 class midiUtil;
 class keyboardIn;
 class qtKey : public midiUtil{
     //qwerty MIDI keyboard input
 private:
     queue<int> rawInput;
-    bool print;
     const vector<int> keyT = {97,119,115,101,100,102,116,103,121,104,117,106,107 ,111,108}; //qwerty midi keyboard
     const vector<int> funcKey = {122,120,99,118};
     int currentOctave;
+    void makeNote(int key){
+        //change keycode to midi note
+        if(isNote(key, keyT)){
+            int thisNote = getIndex(key, keyT) + ((currentOctave+2)*12);
+            addValue(thisNote);
+            printMIDIvalue(thisNote);
+        }
+        
+    }
     bool isNote(int keycode, vector<int> v){
         for(int i=0;i < v.size();i++){
             if(keycode == v.at(i)) {
@@ -54,7 +59,9 @@ private:
         return output;
     };
 public:
-    qtKey():currentOctave(3), print(true){};
+    qtKey():currentOctave(3){
+        
+    };
     void getInputs(int key);//get all keyboard inputs
     void changeOct(int key);
     bool isPressed(bool key);
